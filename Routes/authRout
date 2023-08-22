@@ -1,0 +1,31 @@
+const router=require('express').Router()
+
+const usermodal=require('../Models/UserModel')
+
+router.post('/adduser',async(req,res)=>{
+    console.log("hhhhhh");
+
+    try {
+        
+        const newUser = new usermodal({
+    
+            username: "vishnu kv",
+            email: "vishnu@gmail.com",
+            password: "hashPassword",
+            mobile:8921606978
+          });
+          await newUser.save().then((user) => {
+            const token = createToken(user._id);
+      
+            res.status(200).json({ user: user, token: token, created: true });
+          });
+    } catch (error) {
+        res.status(500)
+        console.log(error);
+    }
+
+
+})
+
+
+module.exports = router 
